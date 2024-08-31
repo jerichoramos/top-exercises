@@ -1,5 +1,16 @@
 let displayScreen = document.querySelector(".display");
+let calcBtns = document.querySelectorAll(".calc-btn");
+
 let firstNumber, secondNumber, operator;
+
+calcBtns.forEach((calcBtn) => {
+	calcBtn.addEventListener("click", () => {
+		console.log(calcBtn.innerText);
+		displayScreen += calcBtn.innerText;
+	});
+});
+
+function displayNumbers() {}
 
 function operate(firstNumber, secondNumber, operator) {
 	switch (operator) {
