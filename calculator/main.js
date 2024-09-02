@@ -1,12 +1,21 @@
 let displayScreen = document.querySelector(".display");
 let calcBtns = document.querySelectorAll(".calc-btn");
 
-let firstNumber, secondNumber, operator;
+let firstNumber = "",
+	secondNumber = "",
+	operator = "";
 
 calcBtns.forEach((calcBtn) => {
 	calcBtn.addEventListener("click", () => {
-		console.log(calcBtn.innerText);
-		displayScreen += calcBtn.innerText;
+		// console.log(calcBtn.innerText);
+
+		if (!operator) {
+			firstNumber += calcBtn.innerText;
+		} else {
+			secondNumber += calcBtn.innerText;
+		}
+
+		console.log(firstNumber, secondNumber);
 	});
 });
 
