@@ -1,3 +1,25 @@
+.main-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.calculator {
+	width: 600px;
+}
+
 .grid {
 	display: grid;
+}
+
+.row {
+	display: flex;
+}
+
+.row .calc-btn {
+	width: 33%;
+}
+
+.row .clr-btn {
+	width: 100%;
 }
