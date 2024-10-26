@@ -15,78 +15,85 @@ function operate(num1, num2, op) {
 
 	switch (op) {
 		case "+":
-			add(num1, num2);
-			break;
+			return add(num1, num2);
 		case "-":
-			subtract(num1, num2);
-			break;
+			return subtract(num1, num2);
 		case "x":
-			multiply(num1, num2);
-			break;
+			return multiply(num1, num2);
 		case "/":
-			divide(num1, num2);
+			return divide(num1, num2);
+		default:
+			return null;
 	}
 }
 
 function add(a, b) {
-	result = a + b;
-	operator = "";
-	secondNumber = "";
-	firstNumber = result;
-	console.log(result);
+	return a + b;
 }
 
 function subtract(a, b) {
-	result = a - b;
-	operator = "";
-	secondNumber = "";
-	firstNumber = result;
-	console.log(result);
+	return a - b;
 }
 
 function multiply(a, b) {
-	result = a * b;
-	operator = "";
-	secondNumber = "";
-	firstNumber = result;
-	console.log(result);
+	return a * b;
 }
 
 function divide(a, b) {
-	result = a / b;
-	operator = "";
-	secondNumber = "";
-	firstNumber = result;
-	console.log(result);
+	return b === 0 ? "Error" : a / b; // Prevent division by zero
 }
 
 calcBtns.forEach((calcBtn) => {
 	calcBtn.addEventListener("click", () => {
-		if (calcBtn.className.includes("op-btn")) {
-			operator = calcBtn.innerText;
-		} else if (calcBtn.className.includes("num-btn--equal")) {
-			console.log("clicked");
-			operate(firstNumber, secondNumber, operator);
-		} else {
+		if (calcBtn.classList.contains("num-btn")) {
+			if (result && secondNumber) {
+				resetCalculator();
+				// console.log("hello");
+				// console.log(firstNumber, secondNumber, operator, result);
+			}
+
 			if (!operator) {
 				firstNumber += calcBtn.innerText;
+				displayScreen.innerText = `${firstNumber} ${operator} ${secondNumber}`;
+				console.log(firstNumber, secondNumber, operator);
 			} else {
 				secondNumber += calcBtn.innerText;
+				displayScreen.innerText = `${firstNumber} ${operator} ${secondNumber}`;
+				console.log(firstNumber, secondNumber, operator);
+			}
+		} else if (calcBtn.classList.contains("op-btn")) {
+			if (result) {
+				operator = "";
+				secondNumber = "";
+				firstNumber = result.toString();
+			}
+			operator = calcBtn.innerText;
+			console.log(firstNumber, secondNumber, operator);
+		} else if (calcBtn.classList.contains("num-btn--equal")) {
+			if (firstNumber && secondNumber && operator) {
+				console.log(firstNumber, secondNumber, operator);
+				result = operate(firstNumber, secondNumber, operator);
+				displayResult(result);
+				// resetCalculator();
 			}
 		}
-		displayResult();
 	});
 });
 
-function displayResult() {
-	displayScreen.innerText = `${firstNumber} ${operator} ${secondNumber}`;
+function displayResult(value) {
+	displayScreen.innerText =
+		value ?? `${firstNumber} ${operator} ${secondNumber}`;
+	// console.log(value);
+	// console.log(displayScreen);
 }
 
+clrBtn.addEventListener("click", () => {
+	resetCalculator();
+});
+
 function resetCalculator() {
-	clrBtn.addEventListener("click", () => {
-		operator = "";
-		secondNumber = "";
-		firstNumber = "";
-		displayScreen.innerText = "";
-	});
+	operator = "";
+	secondNumber = "";
+	firstNumber = "";
+	result = "";
 }
